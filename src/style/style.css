@@ -2,24 +2,25 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-black-100: #ffffff;
-  --color-black-200: #a0a0a0;
-  --color-black-300: #8e8e93;
-  --color-black-400: #6e6e6e;
-  --color-black-500: #666666;
-  --color-black-600: #4a4a4a;
-  --color-black-700: #2c2c2c;
-  --color-black-800: #1e1e1e;
-  --color-black-900: #1a1a1a;
-  --color-black-950: #121212;
+  --color-black-100: #f2f2f3; /* tekst główny, miękka biel */
+  --color-black-200: #c4c4c8; /* tekst drugorzędny, ikony aktywne */
+  --color-black-300: #9e9ea4; /* placeholder, tekst pomocniczy */
+  --color-black-400: #7c7c82; /* ikony drugorzędne */
+  --color-black-500: #5f5f65; /* etykiety, wyłączone elementy */
+  --color-black-600: #46464b; /* mocniejsze obramowania, hover na borderach */
+  --color-black-700: #333337; /* obramowania i podziały */
+  --color-black-800: #262629; /* tło kart, inputów */
+  --color-black-900: #1b1b1e; /* tło dropdownów, nakładek */
+  --color-black-950: #111113; /* tło całej strony */
 
-  --color-green-500: #2ecc71;
-  --color-green-600: #1a4d2e;
+  /* --color-green-500: #2ecc71; */
+  /* --color-green-600: #1a4d2e; */
   --color-teal-500: #00f0ff;
   --color-orange-500: #d35400;
 }
 
 body {
   font-family: 'Inter', sans-serif;
+  background-color: var(--color-black-950);
   color: var(--color-black-100);
 }

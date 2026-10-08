@@ -13,7 +13,333 @@
     <script type="module" src="./src/js/controller.js"></script>
     <title>Pawn Shop App</title>
   </head>
-  <body class="bg-black-950">
-    <h1>test</h1>
+  <body>
+    <header class="border-b border-black-700">
+      <div
+        class="mx-auto max-w-7xl px-4 py-6 flex justify-between items-center"
+      >
+        <a href="/" class="text-xl font-medium">Pawn Shop App</a>
+        <nav>
+          <ul class="flex gap-6">
+            <li>
+              <a
+                href="/"
+                data-text="Buy items"
+                data-active
+                class="relative inline-flex flex-col items-center border-b border-transparent after:content-[attr(data-text)] after:font-semibold after:h-0 after:invisible after:overflow-hidden after:select-none hover:font-semibold data-active:font-semibold data-active:border-black-400"
+              >
+                Buy items
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+                data-text="Mange equipment"
+                class="relative inline-flex flex-col items-center border-b border-transparent after:content-[attr(data-text)] after:font-semibold after:h-0 after:invisible after:overflow-hidden after:select-none hover:font-semibold data-active:font-semibold data-active:border-black-400"
+              >
+                Mange equipment
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+                data-text="Add items"
+                class="relative inline-flex flex-col items-center border-b border-transparent after:content-[attr(data-text)] after:font-semibold after:h-0 after:invisible after:overflow-hidden after:select-none hover:font-semibold data-active:font-semibold data-active:border-black-400"
+              >
+                Add items
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="max-w-3xl mx-auto">
+      <section class="max-w-3xl h-full mx-auto px-8 relative">
+        <div class="pt-8 flex flex-col gap-2 mb-10">
+          <label for="search-item" class="font-semibold text-sm w-fit"
+            >SEARCH ITEM</label
+          >
+          <div class="relative inline-block">
+            <input
+              type="text"
+              name="search-item"
+              id="search-item"
+              class="w-full px-4.5 py-2.5 text-lg bg-black-950 border border-black-700 rounded-xl outline-none transition-colors focus:border-black-500 placeholder:text-black-300 placeholder:transition-colors focus:placeholder:text-black-600"
+              placeholder="Search for an item..."
+            />
+            <button
+              class="absolute top-1/2 right-4 -translate-y-1/2 text-black-400 rounded-lg hover:text-black-500 hover:scale-110 active:text-black-600 transition-colors cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-x preview-icon"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2 mb-10 h-127">
+          <p class="font-semibold text-sm uppercase">ITEM LIST</p>
+          <!-- HERE IT IS SINGLE ITEM -->
+          <div
+            data-item
+            class="border border-black-700 rounded-xl px-3 py-3 flex flex-row gap-4 items-center transition-colors hover:border-black-600"
+          >
+            <img
+              src="./src/imgs/item_icons/golden_bar.jpg"
+              alt="Golden bar"
+              class="w-22 rounded-lg"
+            />
+            <div class="flex flex-col grow">
+              <span
+                data-item-category
+                class="text-[10px] w-fit font-semibold uppercase inline-flex px-3 py-0 tracking-wide rounded-3xl bg-yellow-500 mb-1"
+                >MATERIAL</span
+              >
+              <p
+                data-item-name
+                class="font-semibold text-lg/5 uppercase mb-2 mt-0.5"
+              >
+                Golden Bar
+              </p>
+
+              <p class="text-sm text-black-400">
+                Est. retail value
+                <span data-retail-value class="text-black-200 font-normal"
+                  >$350</span
+                >
+              </p>
+            </div>
+            <div class="flex flex-col gap-1" title="Value after margin">
+              <div>
+                <p
+                  class="text-sm uppercase text-black-400 font-semibold text-right"
+                >
+                  Buying price:
+                </p>
+                <p
+                  data-buying-price
+                  class="text-xl/5 text-right font-semibold text-green-500 mb-1"
+                >
+                  $350
+                </p>
+              </div>
+              <p
+                class="text-sm uppercase text-black-400 font-semibold text-right"
+              >
+                Total value:
+                <span data-item-total-value class="text-black-200 font-semibold"
+                  >$280</span
+                >
+              </p>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <button
+                data-value-increase
+                class="border border-black-600 rounded-md px-3 text-black-200 bg-black-900 transition-colors hover:bg-black-800 active:bg-black-700 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-chevron-up preview-icon"
+                >
+                  <path d="m18 15-6-6-6 6" />
+                </svg>
+              </button>
+              <input
+                data-item-quantity
+                type="text"
+                class="w-14 outline-none border border-black-600 rounded-md text-center text-sm py-0.5 bg-black-800 transition-colors focus-visible:bg-black-700"
+                name="item-quantity"
+                id="item-quantity"
+                value="1"
+              />
+              <button
+                data-value-decrease
+                class="border border-black-600 rounded-md px-3 text-black-200 bg-black-900 transition-colors hover:bg-black-800 active:bg-black-700 cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-chevron-down preview-icon"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          data-search-modal
+          class="bg-black-950/85 backdrop-blur-[3px] border border-black-700 rounded-xl absolute top-29 left-0 inset-x-0 opacity-0 invisible pointer-events-none data-open:opacity-100 data-open:visible data-open:pointer-events-auto transition-opacity"
+        >
+          <div
+            class="max-h-130 w-full max-w-3xl mx-auto px-8 py-4 pb-7.5 overflow-hidden"
+          >
+            <p class="font-semibold text-sm uppercase mb-2">FOUND ITEMS</p>
+            <!-- <p class="text-black-400 text-center">No matching items</p> -->
+            <div data-found-items-container class="grid grid-cols-3 gap-2">
+              <div
+                class="border border-black-600 hover:border-black-500 rounded-lg p-2 transition-colors group"
+              >
+                <div class="flex gap-2.5 mb-2">
+                  <picture class="block rounded-md overflow-hidden shrink-0">
+                    <img
+                      src="./src/imgs/item_icons/angle_grinder.jpg"
+                      alt="Golden bar"
+                      class="w-22 rounded-md transition-transform group-hover:scale-105"
+                    />
+                  </picture>
+                  <div class="flex flex-col grow">
+                    <span
+                      data-item-category
+                      class="text-[8px] w-fit font-semibold uppercase inline-flex px-2 py-px tracking-wide rounded-3xl bg-amber-950 mb-1 mt-0.5"
+                      >TOOLS</span
+                    >
+                    <p
+                      data-item-name
+                      class="font-semibold text-sm/4 uppercase mb-1.5 mt-0.5 max-h-[2lh] line-clamp-2"
+                    >
+                      ANGLE GRINDER WITH WHEEL
+                    </p>
+                    <p class="text-xs/3 text-black-400">
+                      Est. retail value
+                      <span
+                        data-retail-value
+                        class="text-black-200 font-normal text-xs"
+                        >$750</span
+                      >
+                    </p>
+                  </div>
+                </div>
+                <button
+                  class="bg-green-500 w-full rounded-md text-xs/6 font-bold uppercase transition-colors hover:bg-green-600 active:bg-green-700 cursor-pointer"
+                >
+                  Add item
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="min-w-full bg-black-700 h-px"></div>
+      <section class="w-full mt-6 flex">
+        <div class="px-8 ml-auto">
+          <div
+            class="border border-black-700 rounded-lg py-2.5 px-4 flex items-center gap-8"
+          >
+            <div class="flex flex-col gap-0.5">
+              <p class="text-[10px]/3 font-semibold uppercase">Profit margin</p>
+              <div
+                class="border border-black-700 rounded-md p-0.5 w-fit flex items-center"
+              >
+                <input
+                  data-profit-margin
+                  type="text"
+                  name="profit-margin"
+                  id="profit-margin"
+                  value="30"
+                  class="w-12 pl-1.5 outline-none"
+                />
+                <span class="text-black-600 font-semibold select-none">%</span>
+                <div class="flex flex-col ml-1">
+                  <button
+                    class="text-[8px] border-b border-black-600 hover:bg-black-800 active:bg-black-700 cursor-pointer rounded-tl-md rounded-tr-md"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-chevron-up preview-icon"
+                    >
+                      <path d="m18 15-6-6-6 6" />
+                    </svg>
+                  </button>
+                  <button
+                    class="text-[8px] hover:bg-black-800 active:bg-black-700 cursor-pointer rounded-bl-md rounded-br-md"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-chevron-down preview-icon"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <p class="text-[10px]/3 font-semibold uppercase">Total</p>
+              <p
+                data-total-checkout
+                class="text-2xl/5 text-green-500 font-bold max-w-[7ch]"
+              >
+                $679
+              </p>
+            </div>
+            <button
+              class="text-sm/6 text-black-100 uppercase font-bold bg-green-500 rounded-lg inline-flex items-center py-1.5 px-3 gap-0.5 hover:bg-green-600 active:bg-green-700 active:text-black-200 transition-colors cursor-pointer"
+            >
+              Proceed
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-arrow-right preview-icon"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
