@@ -59,8 +59,9 @@
           <label for="search-item" class="font-semibold text-sm w-fit"
             >SEARCH ITEM</label
           >
-          <div class="relative inline-block">
+          <div data-search-items-container class="relative inline-block">
             <input
+              data-search-items-input
               type="text"
               name="search-item"
               id="search-item"
@@ -68,6 +69,7 @@
               placeholder="Search for an item..."
             />
             <button
+              data-delete-search-btn
               class="absolute top-1/2 right-4 -translate-y-1/2 text-black-400 rounded-lg hover:text-black-500 hover:scale-110 active:text-black-600 transition-colors cursor-pointer"
             >
               <svg
@@ -195,7 +197,8 @@
         </div>
         <div
           data-search-modal
-          class="bg-black-950/85 backdrop-blur-[3px] border border-black-700 rounded-xl absolute top-29 left-0 inset-x-0 opacity-0 invisible pointer-events-none data-open:opacity-100 data-open:visible data-open:pointer-events-auto transition-opacity"
+          data-hidden
+          class="bg-black-950/85 backdrop-blur-[3px] border border-black-700 rounded-xl absolute top-29 left-0 inset-x-0 data-hidden:opacity-0 data-hidden:invisible data-hidden:pointer-events-none opacity-100 visible pointer-events-auto transition-opacity"
         >
           <div
             class="max-h-130 w-full max-w-3xl mx-auto px-8 py-4 pb-7.5 overflow-hidden"
@@ -253,7 +256,9 @@
             class="border border-black-700 rounded-lg py-2.5 px-4 flex items-center gap-8"
           >
             <div class="flex flex-col gap-0.5">
-              <p class="text-[10px]/3 font-semibold uppercase">Profit margin</p>
+              <p class="text-[10px]/3 font-semibold uppercase text-black-200">
+                Profit margin
+              </p>
               <div
                 class="border border-black-700 rounded-md p-0.5 w-fit flex items-center has-[input:focus]:border-black-500 transition-colors duration-100"
               >
@@ -307,7 +312,9 @@
               </div>
             </div>
             <div class="flex flex-col gap-0.5">
-              <p class="text-[10px]/3 font-semibold uppercase">Total</p>
+              <p class="text-[10px]/3 font-semibold uppercase text-black-200">
+                Total
+              </p>
               <p
                 data-total-checkout
                 class="text-2xl/5 text-green-500 font-bold max-w-[7ch]"
@@ -316,7 +323,7 @@
               </p>
             </div>
             <button
-              class="text-sm/6 text-black-100 uppercase font-bold bg-green-500 rounded-lg inline-flex items-center py-1.5 px-3 gap-0.5 hover:bg-green-600 active:bg-green-700 active:text-black-200 transition-colors cursor-pointer"
+              class="text-sm/6 text-black-100 uppercase font-bold bg-green-500 rounded-lg inline-flex items-center py-1.5 px-3 gap-0.5 hover:bg-green-600 active:bg-green-700 active:text-black-200 transition-colors cursor-pointer group"
             >
               Proceed
               <span>
@@ -330,7 +337,7 @@
                   stroke-width="2.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="lucide lucide-arrow-right preview-icon"
+                  class="lucide lucide-arrow-right preview-icon group-hover:translate-x-0.5 transition-transform"
                 >
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
