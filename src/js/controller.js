@@ -1,5 +1,6 @@
 import searchItemsView from './views/searchItemsView';
 import itemListModal from './views/itemListModal';
+import { itemQuantityStepper, profitMarginStepper } from './views/steppers/Stepper'; //prettier-ignore
 
 const searchItemsController = function (value) {
   itemListModal.toggleModal(value.length > 0);
@@ -16,5 +17,10 @@ const init = function () {
 
   searchItemsView.addSearchHandler(searchItemsController);
   searchItemsView.addDeleteSearchBtnHandler(searchDeleteBtnController);
+
+  itemQuantityStepper.addStepperFunctionality();
+  profitMarginStepper.addStepperFunctionality();
+  itemQuantityStepper.addChangeInputHandler();
+  profitMarginStepper.addChangeInputHandler();
 };
 init();
