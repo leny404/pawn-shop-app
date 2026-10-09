@@ -2,6 +2,7 @@ class SearchItemsView {
   _parentEl = document.querySelector('[data-search-items-container]');
   _inputEl = document.querySelector('[data-search-items-input]');
   _deleteBtn = document.querySelector('[data-delete-search-btn]');
+
   clearInput() {
     this._inputEl.value = '';
   }

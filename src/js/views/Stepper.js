@@ -21,9 +21,6 @@ class Stepper {
   addStepperFunctionality() {
     this._increaseBtn.addEventListener('click', () => this._changeValue(1));
     this._decreaseBtn.addEventListener('click', () => this._changeValue(-1));
-  }
-
-  addChangeInputHandler() {
     this._input.addEventListener('input', this._inputBoundries.bind(this));
   }
 }

@@ -1,10 +1,13 @@
 import searchItemsView from './views/searchItemsView';
 import itemListModal from './views/itemListModal';
-import { itemQuantityStepper, profitMarginStepper } from './views/steppers/Stepper'; //prettier-ignore
+import { itemQuantityStepper, profitMarginStepper } from './views/Stepper.js'; //prettier-ignore
+import * as model from './model.js';
 
 const searchItemsController = function (value) {
   itemListModal.toggleModal(value.length > 0);
-  return;
+
+  const similarArr = model.getSimilar(value) || [];
+  itemListModal.renderAll(similarArr);
 };
 
 const searchDeleteBtnController = function () {
@@ -20,7 +23,5 @@ const init = function () {
 
   itemQuantityStepper.addStepperFunctionality();
   profitMarginStepper.addStepperFunctionality();
-  itemQuantityStepper.addChangeInputHandler();
-  profitMarginStepper.addChangeInputHandler();
 };
 init();
