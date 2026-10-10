@@ -1,7 +1,7 @@
 import searchItemsView from './views/searchItemsView';
 import itemListModalView from './views/itemListModalView';
 import itemListView from './views/itemListView.js';
-import steppers from './views/Stepper.js'; //prettier-ignore
+import initSteppers from './views/Stepper.js'; //prettier-ignore
 import * as model from './model.js';
 
 const searchItemsController = function (value) {
@@ -38,6 +38,6 @@ const init = function () {
 
   itemListModalView.addItemHandler(addItemController);
 
-  steppers.addStepperFunctionality();
+  initSteppers.addStepperFunctionality();
 };
 init();
