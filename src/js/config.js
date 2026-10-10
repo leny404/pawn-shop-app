@@ -6,3 +6,8 @@ export const CATEGORY_COLOR = new Map([
   ['art', 'bg-green-800'],
   ['antiques', 'bg-orange-500'],
 ]);
+
+export const placeholder = new URL(
+  '../imgs/item_icons/placeholder.jpg',
+  import.meta.url,
+).href;

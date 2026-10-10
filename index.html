@@ -66,7 +66,7 @@
               name="search-item"
               id="search-item"
               class="w-full px-4.5 py-2.5 text-lg bg-black-950 border border-black-700 rounded-xl outline-none transition-colors focus:border-black-500 placeholder:text-black-300 placeholder:transition-colors focus:placeholder:text-black-600"
-              placeholder="Search for an item..."
+              placeholder="Search for an item... (name, category)"
             />
             <button
               data-delete-search-btn
@@ -90,8 +90,11 @@
             </button>
           </div>
         </div>
-        <div class="flex flex-col gap-2 mb-10 h-127">
-          <p class="font-semibold text-sm uppercase">ITEM LIST</p>
+        <p class="font-semibold text-sm uppercase mb-2">ITEM LIST</p>
+        <div
+          data-item-list
+          class="flex flex-col gap-2 mb-10 h-127 overflow-scroll"
+        >
           <!-- HERE IT IS SINGLE ITEM -->
           <div
             data-item
@@ -197,13 +200,20 @@
         </div>
         <div
           data-search-modal
+          data-hidden
           class="bg-black-950/85 backdrop-blur-[3px] border border-black-700 rounded-xl absolute top-29 left-0 inset-x-0 data-hidden:opacity-0 data-hidden:invisible data-hidden:pointer-events-none opacity-100 visible pointer-events-auto transition-opacity"
         >
           <div
             class="max-h-130 w-full max-w-3xl mx-auto px-8 py-4 pb-7.5 overflow-hidden"
           >
-            <p class="font-semibold text-sm uppercase mb-2">FOUND ITEMS</p>
             <!-- <p class="text-black-400 text-center">No matching items</p> -->
+
+            <p class="font-semibold text-sm uppercase mb-2">
+              FOUND ITEMS
+              <span class="text-xs text-black-500 capitalize"
+                >Found <span data-found-items>iles</span> items</span
+              >
+            </p>
             <div data-found-items-container class="grid grid-cols-3 gap-2">
               <div
                 class="border border-black-600 hover:border-black-500 rounded-lg p-2 transition-colors group"
@@ -259,9 +269,11 @@
                 Profit margin
               </p>
               <div
+                data-stepper-parent
                 class="border border-black-700 rounded-md p-0.5 w-fit flex items-center has-[input:focus]:border-black-500 transition-colors duration-100"
               >
                 <input
+                  data-stepper-input
                   data-profit-margin
                   type="text"
                   name="profit-margin"
@@ -272,6 +284,7 @@
                 <span class="text-black-600 font-semibold select-none">%</span>
                 <div class="flex flex-col ml-1">
                   <button
+                    data-stepper-increase-btn
                     data-profit-margin-increase-btn
                     class="text-[8px] border-b border-black-600 hover:bg-black-800 active:bg-black-700 cursor-pointer rounded-tl-md rounded-tr-md"
                   >
@@ -291,6 +304,7 @@
                     </svg>
                   </button>
                   <button
+                    data-stepper-decrease-btn
                     data-profit-margin-decrease-btn
                     class="text-[8px] hover:bg-black-800 active:bg-black-700 cursor-pointer rounded-bl-md rounded-br-md"
                   >

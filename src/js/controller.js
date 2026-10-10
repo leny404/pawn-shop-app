@@ -1,18 +1,30 @@
 import searchItemsView from './views/searchItemsView';
-import itemListModal from './views/itemListModal';
-import { itemQuantityStepper, profitMarginStepper } from './views/Stepper.js'; //prettier-ignore
+import itemListModalView from './views/itemListModalView';
+import itemListView from './views/itemListView.js';
+import steppers from './views/Stepper.js'; //prettier-ignore
 import * as model from './model.js';
 
 const searchItemsController = function (value) {
-  itemListModal.toggleModal(value.length > 0);
+  itemListModalView.toggleModal(value.length > 0);
 
   const similarArr = model.getSimilar(value) || [];
-  itemListModal.renderAll(similarArr);
+
+  similarArr.length > 0
+    ? itemListModalView.renderAll(similarArr)
+    : itemListModalView.renderMessage();
+
+  itemListModalView.showCountOfFoundedItems(similarArr.length);
 };
 
 const searchDeleteBtnController = function () {
-  itemListModal.toggleModal(false);
+  itemListModalView.toggleModal(false);
   searchItemsView.clearInput();
+};
+
+const addItemController = function (id) {
+  if (!id) return;
+  model.addItem(id);
+  itemListView.renderAll(model.state.addedItems);
 };
 
 const init = function () {
@@ -21,7 +33,11 @@ const init = function () {
   searchItemsView.addSearchHandler(searchItemsController);
   searchItemsView.addDeleteSearchBtnHandler(searchDeleteBtnController);
 
-  itemQuantityStepper.addStepperFunctionality();
-  profitMarginStepper.addStepperFunctionality();
+  // itemQuantityStepper.addStepperFunctionality();
+  // profitMarginStepper.addStepperFunctionality();
+
+  itemListModalView.addItemHandler(addItemController);
+
+  steppers.addStepperFunctionality();
 };
 init();

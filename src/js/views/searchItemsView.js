@@ -8,14 +8,15 @@ class SearchItemsView {
   }
 
   addSearchHandler(handler) {
-    this._inputEl.addEventListener('input', e => {
+    this._inputEl.addEventListener('input', () => {
       const input = this._inputEl;
       handler(input.value);
     });
   }
 
   addDeleteSearchBtnHandler(handler) {
-    this._deleteBtn.addEventListener('click', e => {
+    this._deleteBtn.addEventListener('click', () => {
+      this._inputEl.focus();
       handler();
     });
   }
