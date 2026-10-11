@@ -20,6 +20,14 @@ export const getSimilar = function (searchValue) {
     .map(r => r.item);
 };
 
+const createAddProductObject = function (itemObj, q) {
+  return {
+    ...itemObj,
+    quantity: 1,
+    buyingPrice: itemObj.estRetailValue,
+  };
+};
+
 const changeBuyingPrice = function (item) {
   item.buyingPrice = item.estRetailValue * item.quantity;
 };
@@ -33,15 +41,7 @@ export const addItem = function (id) {
     changeBuyingPrice(existingItem);
   } else state.addedItems.push(item);
 
-  console.log(state.addedItems);
-};
-
-const createAddProductObject = function (itemObj, q) {
-  return {
-    ...itemObj,
-    quantity: 1,
-    buyingPrice: itemObj.estRetailValue,
-  };
+  persistAddedItems();
 };
 
 export const changeQuantity = function (id, quantity) {
@@ -50,5 +50,11 @@ export const changeQuantity = function (id, quantity) {
 
   item.quantity = quantity;
   changeBuyingPrice(item);
+
+  persistAddedItems();
   return item;
+};
+
+const persistAddedItems = function () {
+  localStorage.setItem('addedItems', JSON.stringify(state.addedItems));
 };

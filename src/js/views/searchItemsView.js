@@ -5,12 +5,28 @@ class SearchItemsView {
 
   clearInput() {
     this._inputEl.value = '';
+    this._inputEl.blur();
   }
 
   addSearchHandler(handler) {
     this._inputEl.addEventListener('input', () => {
-      const input = this._inputEl;
-      handler(input.value);
+      handler(this._inputEl.value);
+    });
+  }
+  addOpenModalHandler(handler) {
+    this._inputEl.addEventListener('focus', () => {
+      handler(this._inputEl.value);
+    });
+  }
+
+  addCloseModalHandler(handler) {
+    window.addEventListener('click', e => {
+      if (
+        e.target.closest('[data-search-modal]') ||
+        e.target.closest('[data-search-items-container]')
+      )
+        return;
+      handler();
     });
   }
 

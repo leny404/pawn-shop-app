@@ -6,14 +6,15 @@ class ItemListModal extends View {
   _modalEl = document.querySelector('[data-search-modal]');
   _foundedItemsEl = document.querySelector('[data-found-items]');
   _data = null;
+  _openedModal = false;
 
   _generateMarkup() {
     return `
       <div
           data-id="${this._data.id}"
-          class="border border-black-600 hover:border-black-500 rounded-lg p-2 transition-colors group"
+          class="border border-black-600 hover:border-black-500 rounded-lg p-2 transition-colors group data-active:border-black-500 data-active:bg-black-900"
         >
-        <div class="flex gap-2.5 mb-2">
+        <div class="flex gap-2.5 mb-2 relative">
           <picture class="block rounded-md overflow-hidden shrink-0">
             <img
               src="${this._data.imgPath || placeholder}"
@@ -42,6 +43,7 @@ class ItemListModal extends View {
               >
             </p>
           </div>
+          <span data-quantity-modal class="text-xs text-black-200 font-semibold absolute top-0 right-0 opacity-0 group-data-active:opacity-100">x2</span>
         </div>
         <button
           data-modal-item-add-btn
@@ -52,16 +54,32 @@ class ItemListModal extends View {
       </div>
     `;
   }
-
   _show() {
     this._modalEl.removeAttribute('data-hidden');
+    this._openedModal = true;
   }
   _hide() {
     this._modalEl.setAttribute('data-hidden', '');
+    this._openedModal = false;
   }
 
   toggleModal(show) {
     show ? this._show() : this._hide();
+  }
+
+  getIsOpen() {
+    return this._openedModal;
+  }
+
+  selectAllItems(addedItems) {
+    addedItems.forEach(({ id, quantity }) => {
+      const matchingEl = this._parentEl.querySelector(`[data-id="${id}"]`);
+      if (!matchingEl) return;
+
+      matchingEl.setAttribute('data-active', '');
+      const quantityEl = matchingEl.querySelector('[data-quantity-modal]');
+      quantityEl.textContent = `x${quantity}`;
+    });
   }
 
   showCountOfFoundedItems(howMany) {
