@@ -46,8 +46,9 @@ const createAddProductObject = function (itemObj, q) {
 
 export const changeQuantity = function (id, quantity) {
   const item = findItemById(state.addedItems, id);
-  if (quantity < 1) return;
+  if (!item || !Number.isInteger(quantity) || quantity < 1) return;
 
   item.quantity = quantity;
   changeBuyingPrice(item);
+  return item;
 };

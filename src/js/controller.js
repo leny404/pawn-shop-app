@@ -28,9 +28,10 @@ const addItemController = function (id) {
   itemListView.renderAll(model.state.addedItems);
 };
 
-const addItemStepperController = function (id, quantityDelta) {
-  model.changeQuantity(id, quantityDelta);
-  itemListView.renderAll(model.state.addedItems);
+const addItemStepperController = function (id, quantity, syncInput) {
+  const item = model.changeQuantity(id, quantity);
+  if (!item) return;
+  itemListView.updateItem(item, { syncInput });
 };
 
 const init = function () {
