@@ -7,23 +7,35 @@ import { itemList } from './items.js';
 
 const renderSimilar = function (value) {
   const similarArr = model.getSimilar(value) || [];
-
+  console.log(value);
   similarArr.length > 0
     ? itemListModalView.renderAll(similarArr)
     : itemListModalView.renderMessage();
+
+  itemListModalView.selectAllItems(model.state.addedItems);
+  itemListModalView.showCountOfFoundedItems(similarArr.length);
 
   return similarArr;
 };
 
 const openModalController = function (value) {
+  const isModalOpen = itemListModalView.getIsOpen();
+  if (isModalOpen) return;
+
   itemListModalView.toggleModal(true);
 
-  if (value.length > 0) {
+  //This shit needs fixation or smth, or maybe its good, idk yet
+  if (value.length === 0) {
+    itemListModalView.renderAll(model.state.itemList);
+    itemListModalView.showCountOfFoundedItems(model.state.itemList.length);
+  } else {
     renderSimilar(value);
-  } else itemListModalView.renderAll(model.state.itemList);
-
-  itemListModalView.showCountOfFoundedItems(model.state.itemList.length);
+  }
   itemListModalView.selectAllItems(model.state.addedItems);
+
+  // value.length > 0
+  //   ? similarArr
+  //   : itemListModalView.renderAll(model.state.itemList);
 };
 const closeModalController = function () {
   const isModalOpen = itemListModalView.getIsOpen();
@@ -33,10 +45,7 @@ const closeModalController = function () {
 };
 
 const searchItemsController = function (value) {
-  const similarArr = renderSimilar(value);
-
-  itemListModalView.showCountOfFoundedItems(similarArr.length);
-  itemListModalView.selectAllItems(model.state.addedItems);
+  renderSimilar(value);
 };
 
 const searchDeleteBtnController = function () {
@@ -60,17 +69,15 @@ const addItemStepperController = function (id, quantity, syncInput) {
 };
 
 const init = function () {
+  itemListView.renderAll(model.state.addedItems);
+
   searchItemsView.clearInput();
-  // initSteppers.addStepperFunctionality();
 
   searchItemsView.addOpenModalHandler(openModalController);
   searchItemsView.addCloseModalHandler(closeModalController);
 
   searchItemsView.addSearchHandler(searchItemsController);
   searchItemsView.addDeleteSearchBtnHandler(searchDeleteBtnController);
-
-  // itemQuantityStepper.addStepperFunctionality();
-  // profitMarginStepper.addStepperFunctionality();
 
   itemListModalView.addItemHandler(addItemController);
 

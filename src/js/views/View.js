@@ -1,5 +1,5 @@
 export default class View {
-  _msg = 'Found none items';
+  _msg = 'Found 👌 items';
 
   _clear() {
     this._parentEl.innerHTML = '';

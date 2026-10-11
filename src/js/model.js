@@ -58,3 +58,9 @@ export const changeQuantity = function (id, quantity) {
 const persistAddedItems = function () {
   localStorage.setItem('addedItems', JSON.stringify(state.addedItems));
 };
+
+const loadAddedItems = function () {
+  const items = localStorage.getItem('addedItems');
+  state.addedItems = JSON.parse(items) || [];
+};
+loadAddedItems();
