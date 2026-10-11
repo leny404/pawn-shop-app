@@ -3,6 +3,7 @@ import itemListModalView from './views/itemListModalView';
 import itemListView from './views/itemListView.js';
 import initSteppers from './views/Stepper.js'; //prettier-ignore
 import * as model from './model.js';
+import { itemList } from './items.js';
 
 const searchItemsController = function (value) {
   itemListModalView.toggleModal(value.length > 0);
@@ -27,8 +28,14 @@ const addItemController = function (id) {
   itemListView.renderAll(model.state.addedItems);
 };
 
+const addItemStepperController = function (id, quantityDelta) {
+  model.changeQuantity(id, quantityDelta);
+  itemListView.renderAll(model.state.addedItems);
+};
+
 const init = function () {
   searchItemsView.clearInput();
+  // initSteppers.addStepperFunctionality();
 
   searchItemsView.addSearchHandler(searchItemsController);
   searchItemsView.addDeleteSearchBtnHandler(searchDeleteBtnController);
@@ -38,6 +45,6 @@ const init = function () {
 
   itemListModalView.addItemHandler(addItemController);
 
-  initSteppers.addStepperFunctionality();
+  itemListView.addStepperQuantityHandler(addItemStepperController);
 };
 init();

@@ -74,7 +74,6 @@ class ItemListModal extends View {
       if (!btn) return;
 
       const id = btn.closest('[data-id]').dataset.id;
-      console.log(id);
       handler(id);
     });
   }

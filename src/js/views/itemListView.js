@@ -8,6 +8,7 @@ class ItemListView extends View {
   _generateMarkup() {
     return `
       <div
+        data-id="${this._data.id}"
         data-item
         class="border border-black-700 rounded-xl px-3 py-3 flex flex-row gap-4 items-center transition-colors hover:border-black-600"
       >
@@ -46,7 +47,7 @@ class ItemListView extends View {
               data-buying-price
               class="text-xl/5 text-right font-semibold text-green-500 mb-1"
             >
-              $350
+              $${this._data.buyingPrice}
             </p>
           </div>
           <p
@@ -85,8 +86,7 @@ class ItemListView extends View {
             type="text"
             class="w-14 outline-none border border-black-600 rounded-md text-center text-sm py-0.5 bg-black-800 transition-colors focus-visible:bg-black-700"
             name="item-quantity"
-            id="item-quantity"
-            value="1"
+            value="${this._data.quantity}"
           />
           <button
             data-stepper-btn="-1"
@@ -111,6 +111,56 @@ class ItemListView extends View {
         </div>
       </div>
     `;
+  }
+
+  _focusInputBack(cursorPosition, id) {
+    const rerenderedInput = this._parentEl
+      .querySelector(`[data-id="${id}"]`)
+      .querySelector('[data-item-quantity]');
+
+    rerenderedInput.focus();
+    rerenderedInput.setSelectionRange(cursorPosition, cursorPosition);
+  }
+
+  addStepperQuantityHandler(handler) {
+    this._parentEl.addEventListener('click', e => {
+      const btn = e.target.closest('[data-stepper-btn]');
+      if (!btn) return;
+      const id = btn.closest('[data-id]').dataset.id;
+      const parent = btn.closest('[data-stepper-parent]');
+      const input = parent.querySelector('[data-stepper-input]');
+
+      const valueBefore = +input.value;
+      const addBy = +btn.dataset.stepperBtn;
+      const quantity = valueBefore + addBy;
+
+      handler(id, quantity);
+    });
+    this._parentEl.addEventListener('input', e => {
+      const input = e.target.closest('[data-item-quantity]');
+      if (!input) return;
+
+      const id = input.closest('[data-id]').dataset.id;
+      const quantity = +input.value;
+
+      // For the cursor to stay in same place after rerender
+      const cursorPosition = input.selectionStart;
+
+      if (!isFinite(quantity) || quantity < 0) {
+        input.value = 0;
+        handler(id, 0);
+        this._focusInputBack(cursorPosition, id);
+        return;
+      }
+
+      handler(id, quantity);
+
+      // After handler, all elements are rerenderd, so
+      // DOM elements changed, and thats why i needed to
+      // querySelect input again and put a fucking cursor
+      // for better ux
+      this._focusInputBack(cursorPosition, id);
+    });
   }
 }
 

@@ -148,8 +148,9 @@
                 >
               </p>
             </div>
-            <div class="flex flex-col items-center gap-1">
+            <div data-stepper-parent class="flex flex-col items-center gap-1">
               <button
+                data-stepper-btn="1"
                 data-quantity-increase-btn
                 class="border border-black-600 rounded-md px-3 text-black-200 bg-black-900 transition-colors hover:bg-black-800 active:bg-black-700 cursor-pointer"
               >
@@ -169,6 +170,7 @@
                 </svg>
               </button>
               <input
+                data-stepper-input
                 data-item-quantity
                 type="text"
                 class="w-14 outline-none border border-black-600 rounded-md text-center text-sm py-0.5 bg-black-800 transition-colors focus-visible:bg-black-700"
@@ -177,6 +179,7 @@
                 value="1"
               />
               <button
+                data-stepper-btn="-1"
                 data-quantity-decrease-btn
                 class="border border-black-600 rounded-md px-3 text-black-200 bg-black-900 transition-colors hover:bg-black-800 active:bg-black-700 cursor-pointer"
               >

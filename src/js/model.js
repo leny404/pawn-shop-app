@@ -6,7 +6,7 @@ export const state = {
   addedItems: [],
 };
 
-const findItemById = id => state.itemList.find(item => item.id === id);
+const findItemById = (arr, id) => arr.find(item => item.id === id);
 
 export const getSimilar = function (searchValue) {
   if (!searchValue) return;
@@ -20,9 +20,34 @@ export const getSimilar = function (searchValue) {
     .map(r => r.item);
 };
 
-export const addItem = function (id) {
-  const item = findItemById(id);
-  console.log(item);
-  state.addedItems.push(item);
+const changeBuyingPrice = function (item) {
+  item.buyingPrice = item.estRetailValue * item.quantity;
 };
-console.log(state);
+
+export const addItem = function (id) {
+  const item = createAddProductObject(findItemById(state.itemList, id));
+  const existingItem = findItemById(state.addedItems, item.id);
+
+  if (existingItem) {
+    existingItem.quantity++;
+    changeBuyingPrice(existingItem);
+  } else state.addedItems.push(item);
+
+  console.log(state.addedItems);
+};
+
+const createAddProductObject = function (itemObj, q) {
+  return {
+    ...itemObj,
+    quantity: 1,
+    buyingPrice: itemObj.estRetailValue,
+  };
+};
+
+export const changeQuantity = function (id, quantity) {
+  const item = findItemById(state.addedItems, id);
+  if (quantity < 1) return;
+
+  item.quantity = quantity;
+  changeBuyingPrice(item);
+};
