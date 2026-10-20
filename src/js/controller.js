@@ -1,13 +1,12 @@
 import searchItemsView from './views/searchItemsView';
 import itemListModalView from './views/itemListModalView';
 import itemListView from './views/itemListView.js';
-import initSteppers from './views/Stepper.js'; //prettier-ignore
 import * as model from './model.js';
 import { itemList } from './items.js';
 
-const renderSimilar = function (value) {
+const renderFoundModalItems = function (value) {
   const similarArr = model.getSimilar(value) || [];
-  console.log(value);
+
   similarArr.length > 0
     ? itemListModalView.renderAll(similarArr)
     : itemListModalView.renderMessage();
@@ -18,25 +17,26 @@ const renderSimilar = function (value) {
   return similarArr;
 };
 
+const renderAllModalItems = function () {
+  itemListModalView.renderAll(model.state.itemList);
+  itemListModalView.showCountOfFoundedItems(model.state.itemList.length);
+  itemListModalView.selectAllItems(model.state.addedItems);
+};
+
+const renderModalItems = function (value) {
+  if (Number.isFinite(value)) return;
+  value.length === 0 ? renderAllModalItems() : renderFoundModalItems(value);
+};
+
 const openModalController = function (value) {
   const isModalOpen = itemListModalView.getIsOpen();
   if (isModalOpen) return;
 
   itemListModalView.toggleModal(true);
 
-  //This shit needs fixation or smth, or maybe its good, idk yet
-  if (value.length === 0) {
-    itemListModalView.renderAll(model.state.itemList);
-    itemListModalView.showCountOfFoundedItems(model.state.itemList.length);
-  } else {
-    renderSimilar(value);
-  }
-  itemListModalView.selectAllItems(model.state.addedItems);
-
-  // value.length > 0
-  //   ? similarArr
-  //   : itemListModalView.renderAll(model.state.itemList);
+  renderModalItems(value);
 };
+
 const closeModalController = function () {
   const isModalOpen = itemListModalView.getIsOpen();
   if (!isModalOpen) return;
@@ -45,7 +45,7 @@ const closeModalController = function () {
 };
 
 const searchItemsController = function (value) {
-  renderSimilar(value);
+  renderModalItems(value);
 };
 
 const searchDeleteBtnController = function () {
