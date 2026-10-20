@@ -5,27 +5,28 @@ import * as model from './model.js';
 import { itemList } from './items.js';
 
 const renderFoundModalItems = function (value) {
-  const similarArr = model.getSimilar(value) || [];
+  const foundItemsArr = model.getSimilar(value) || [];
 
-  similarArr.length > 0
-    ? itemListModalView.renderAll(similarArr)
+  foundItemsArr.length > 0
+    ? renderModalItems(foundItemsArr, model.state.addedItems)
     : itemListModalView.renderMessage();
 
-  itemListModalView.selectAllItems(model.state.addedItems);
-  itemListModalView.showCountOfFoundedItems(similarArr.length);
-
-  return similarArr;
+  return foundItemsArr;
 };
 
-const renderAllModalItems = function () {
-  itemListModalView.renderAll(model.state.itemList);
-  itemListModalView.showCountOfFoundedItems(model.state.itemList.length);
-  itemListModalView.selectAllItems(model.state.addedItems);
+// Default is to render all existing items
+const renderModalItems = function (
+  itemsToRender = model.state.itemList,
+  itemsToSelect = model.state.addedItems,
+) {
+  itemListModalView.renderAll(itemsToRender);
+  itemListModalView.showCountOfFoundedItems(itemsToRender.length);
+  itemListModalView.selectAllItems(itemsToSelect);
 };
 
-const renderModalItems = function (value) {
+const showModalItems = function (value) {
   if (Number.isFinite(value)) return;
-  value.length === 0 ? renderAllModalItems() : renderFoundModalItems(value);
+  value.length === 0 ? renderModalItems() : renderFoundModalItems(value);
 };
 
 const openModalController = function (value) {
@@ -34,7 +35,7 @@ const openModalController = function (value) {
 
   itemListModalView.toggleModal(true);
 
-  renderModalItems(value);
+  showModalItems(value);
 };
 
 const closeModalController = function () {
@@ -45,7 +46,7 @@ const closeModalController = function () {
 };
 
 const searchItemsController = function (value) {
-  renderModalItems(value);
+  showModalItems(value);
 };
 
 const searchDeleteBtnController = function () {
